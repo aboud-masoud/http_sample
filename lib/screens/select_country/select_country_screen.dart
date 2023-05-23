@@ -19,7 +19,7 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
         child: Column(
           children: [
             const Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(16),
               child: Text(
                 "Select Country",
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
