@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:http_sample/screens/select_country/select_country_bloc.dart';
 
-class SelectCountryScreen extends StatelessWidget {
-  SelectCountryScreen({super.key});
+class SelectCountryScreen extends StatefulWidget {
+  const SelectCountryScreen({super.key});
 
+  @override
+  State<SelectCountryScreen> createState() => _SelectCountryScreenState();
+}
+
+class _SelectCountryScreenState extends State<SelectCountryScreen> {
   var bloc = SelectCountryBloc();
 
   @override
@@ -13,7 +18,7 @@ class SelectCountryScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
+            const Padding(
               padding: const EdgeInsets.all(16),
               child: Text(
                 "Select Country",
