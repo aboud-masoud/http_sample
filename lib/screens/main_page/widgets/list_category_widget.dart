@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:http_sample/model/category.dart';
-import 'package:http_sample/screens/main_page/main_page_bloc.dart';
 import 'package:http_sample/screens/main_page/widgets/category_widget.dart';
 
 class ListCategoryWidget extends StatelessWidget {
