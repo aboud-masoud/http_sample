@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http_sample/screens/main_page/main_page_screen.dart';
 import 'package:http_sample/screens/select_country/select_country_bloc.dart';
 
 class SelectCountryScreen extends StatefulWidget {
@@ -34,30 +35,37 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
                       child: ListView.builder(
                         itemCount: snapshot.data!.length,
                         itemBuilder: (contextt, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              height: 60,
-                              color: Colors.white,
-                              child: Row(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.all(16),
-                                    child: Image.network(
-                                      "https://www.helpera.app/static/countries/${snapshot.data![index]!.flagImage!}",
-                                      width: 30,
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(builder: (ctx) {
+                                return const MainPageScreen();
+                              }));
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Container(
+                                height: 60,
+                                color: Colors.white,
+                                child: Row(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Image.network(
+                                        "https://www.helpera.app/static/countries/${snapshot.data![index]!.flagImage!}",
+                                        width: 30,
+                                      ),
                                     ),
-                                  ),
-                                  Text(snapshot.data![index]!.name!),
-                                  Expanded(child: Container()),
-                                  const Padding(
-                                    padding: EdgeInsets.all(8.0),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: 15,
-                                    ),
-                                  )
-                                ],
+                                    Text(snapshot.data![index]!.name!),
+                                    Expanded(child: Container()),
+                                    const Padding(
+                                      padding: EdgeInsets.all(8.0),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios,
+                                        size: 15,
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           );
