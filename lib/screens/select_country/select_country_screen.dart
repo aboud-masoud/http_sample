@@ -16,51 +16,60 @@ class _SelectCountryScreenState extends State<SelectCountryScreen> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: SafeArea(
-        child: Column(
-          children: [
-            const Padding(
-              padding: EdgeInsets.all(16),
-              child: Text(
-                "Select Country",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-              ),
-            ),
-            Expanded(
-              child: ListView.builder(
-                itemCount: bloc.countryList.length,
-                itemBuilder: (contextt, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      height: 60,
-                      color: Colors.white,
-                      child: Row(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16),
-                            child: Image.network(
-                              bloc.countryList[index].flag,
-                              width: 30,
-                            ),
-                          ),
-                          Text(bloc.countryList[index].name),
-                          Expanded(child: Container()),
-                          const Padding(
-                            padding: EdgeInsets.all(8.0),
-                            child: Icon(
-                              Icons.arrow_forward_ios,
-                              size: 15,
-                            ),
-                          )
-                        ],
+        child: FutureBuilder(
+            initialData: const [],
+            future: bloc.callGetCountriesRequest(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData && snapshot.data!.isNotEmpty) {
+                return Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(16),
+                      child: Text(
+                        "Select Country",
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                  );
-                },
-              ),
-            )
-          ],
-        ),
+                    Expanded(
+                      child: ListView.builder(
+                        itemCount: snapshot.data!.length,
+                        itemBuilder: (contextt, index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              height: 60,
+                              color: Colors.white,
+                              child: Row(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Image.network(
+                                      "https://www.helpera.app/static/countries/${snapshot.data![index]!.flagImage!}",
+                                      width: 30,
+                                    ),
+                                  ),
+                                  Text(snapshot.data![index]!.name!),
+                                  Expanded(child: Container()),
+                                  const Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      size: 15,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                  ],
+                );
+              } else {
+                return const Center(child: CircularProgressIndicator());
+              }
+            }),
       ),
     );
   }
