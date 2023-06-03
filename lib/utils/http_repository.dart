@@ -1,12 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:http_sample/model/post_model.dart';
 
-enum RequestType { get, post }
+enum RequestType { get, post, delete }
 
 class HttpRepository {
   Future<dynamic> callRequest(
       {required RequestType requestType,
       required String methodName,
       Map<String, dynamic> queryParam = const {},
+      Model? postBody,
       String language = "en"}) async {
     Response? respose;
 
@@ -30,8 +32,21 @@ class HttpRepository {
             ));
         break;
       case RequestType.post:
-        respose = await dioClient.post(methodName,
-            queryParameters: queryParam, options: Options(contentType: Headers.jsonContentType), data: null);
+        respose = await dioClient.post(
+          methodName,
+          queryParameters: queryParam,
+          options: Options(contentType: Headers.jsonContentType),
+          data: postBody?.toJson(),
+        );
+        break;
+
+      case RequestType.delete:
+        respose = await dioClient.delete(
+          methodName,
+          queryParameters: queryParam,
+          options: Options(contentType: Headers.jsonContentType),
+          data: postBody?.toJson(),
+        );
         break;
     }
 
